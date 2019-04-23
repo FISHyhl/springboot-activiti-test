@@ -1,8 +1,14 @@
 package com.example.demo.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="leave_info")
 public class LeaveInfo {
 
+	@Id
 	private String id;
 	private String status;
 	private String leaveMsg;

@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
-@MapperScan("com.example.demo.dao")
 public class DemoApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(DemoApplication.class);

@@ -10,7 +10,7 @@ import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.LeaveMapper;
+import com.example.demo.dao.LeaveDao;
 import com.example.demo.entity.LeaveInfo;
 import com.example.demo.service.TestLeaveService;
 import com.example.demo.service.LeaveService;
@@ -21,7 +21,7 @@ public class LeaveServiceImpl implements LeaveService {
 	@Autowired
 	private TestLeaveService  testLeaveService;
 	@Autowired
-	private LeaveMapper leaveMapper;
+	private LeaveDao leaveDao;
 	@Autowired
 	private RuntimeService runtimeService;
 	@Override
@@ -31,7 +31,7 @@ public class LeaveServiceImpl implements LeaveService {
 		String id = UUID.randomUUID().toString();
 		leaveInfo.setId(id);
 		//新增一条记录至数据库中
-		leaveMapper.insert(leaveInfo);
+		leaveDao.save(leaveInfo);
 		//启动流程引擎
 		testLeaveService.startProcess(id);
 	}
@@ -44,7 +44,7 @@ public class LeaveServiceImpl implements LeaveService {
 			ProcessInstance result = runtimeService.createProcessInstanceQuery().processInstanceId(task.getProcessInstanceId()).singleResult();
 			//获得业务流程的bussinessKey
 			String businessKey = result.getBusinessKey();
-			LeaveInfo leaveInfo = leaveMapper.getById(businessKey);
+			LeaveInfo leaveInfo = leaveDao.getById(businessKey);
 			leaveInfo.setTaskId(task.getId());
 			leaveInfoList.add(leaveInfo);
 		}

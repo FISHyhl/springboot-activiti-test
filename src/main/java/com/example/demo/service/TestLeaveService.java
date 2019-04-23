@@ -17,14 +17,14 @@ import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.LeaveMapper;
+import com.example.demo.dao.LeaveDao;
 import com.example.demo.entity.LeaveInfo;
 
 @Service("leaveService")
 public class TestLeaveService {
 
 	@Autowired
-	private LeaveMapper leaveMapper;
+	private LeaveDao leaveDao;
 	@Autowired
 	private RuntimeService runtimeService;
 	@Autowired
@@ -96,9 +96,9 @@ public class TestLeaveService {
 		
 		String key = execution.getProcessBusinessKey();
 		//LeaveInfo entity = new LeaveInfo();
-		LeaveInfo entity = leaveMapper.getById(key);
+		LeaveInfo entity = leaveDao.getById(key);
 		entity.setStatus(status);
-		leaveMapper.update(entity);
+		leaveDao.save(entity);
 		
 	//	System.out.println("修改请假单状态为：" + status);
 		
